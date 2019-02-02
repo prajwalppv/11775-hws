@@ -7,10 +7,10 @@ import sys
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:
-        print "Usage: {0} file_list select_ratio output_file".format(sys.argv[0])
-        print "file_list -- the list of video names"
-        print "select_ratio -- the ratio of frames to be randomly selected from each audio file"
-        print "output_file -- path to save the selected frames (feature vectors)"
+        print ("Usage: {0} file_list select_ratio output_file").format(sys.argv[0])
+        print ("file_list -- the list of video names")
+        print ("select_ratio -- the ratio of frames to be randomly selected from each audio file")
+        print ("output_file -- path to save the selected frames (feature vectors)")
         exit(1)
 
     file_list = sys.argv[1]; output_file = sys.argv[3]
