@@ -25,7 +25,7 @@ if __name__ == '__main__':
     all_video_features = [None]*len(filenames)
     # load the kmeans model
     kmeans = pkl.load(open(kmeans_model,"rb"))
-    for idx,line in tqdm(enumerate(filenames)):
+    for idx,line in enumerate(tqdm(filenames)):
         bag_of_words_feature = np.zeros(shape=(cluster_num))
         mfcc_path = "mfcc/" + line.replace('\n','') + ".mfcc.csv"
         feature_path = "feature/kmeans/" + line.replace('\n','') + ".csv"

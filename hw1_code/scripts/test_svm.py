@@ -29,8 +29,9 @@ if __name__ == '__main__':
     val_write = open(val_output_file,"w")
 
     # Set path to val and test lists    
-    val_files = open("../all_val.lst")
-    test_files = open("../all_test.video")
+    val_files = open("../all_val.lst").readlines()
+    test_files = open("../all_test.video").readlines()
+    
     # Load SVM model
     svm = None
     with open(model_file,"rb") as o:
