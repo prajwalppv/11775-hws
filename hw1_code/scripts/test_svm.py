@@ -33,7 +33,7 @@ if __name__ == '__main__':
     test_files = open("../all_test.video")
     # Load SVM model
     svm = None
-    with open(model_file,"wb") as o:
+    with open(model_file,"rb") as o:
         svm = pkl.load(o)
     # Generate TEST probabilities
     print("Creating TEST predictions")
