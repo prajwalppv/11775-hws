@@ -25,7 +25,7 @@ if __name__ == '__main__':
     #Read input MFCCS
     print("Reading MFCCs into numpy array")
     start = time()
-    input_mfccs = numpy.loadtxt(mfcc_csv_file,delimiter=";")    # Doesnt work -> Memory error
+    input_mfccs = numpy.loadtxt(mfcc_csv_file,delimiter=";")
     end = time()
     print("Loaded input into memory. Time taken: {}".format(end-start))
     # Initialize KMeans model with required parameters
