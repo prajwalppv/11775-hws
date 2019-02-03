@@ -23,8 +23,7 @@ if __name__ == '__main__':
     feat_dim = int(sys.argv[3])
     output_file = sys.argv[4]
 
-    train_files = open("../all_trn.lst","r")
-    val_files = open("../all_val.lst")
+    train_files = open("../all_trn.lst","r").readlines()
 
     labels = []
     features = []
@@ -43,7 +42,7 @@ if __name__ == '__main__':
                 labels.append(0)
     features, labels = np.array(features), np.array(labels)
 
-    svm = SVC(kernel='rbf', class_weight='balanced', probability=True)
+    svm = SVC(kernel='rbf', probability=True)
     svm.fit(features,labels)
 
     with open(output_file,"wb") as o:
