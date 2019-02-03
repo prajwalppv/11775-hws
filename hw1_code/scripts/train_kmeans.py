@@ -6,26 +6,7 @@ from sklearn.cluster.k_means_ import KMeans
 from sklearn.cluster import MiniBatchKMeans
 import _pickle as pkl
 import sys
-
-
-def getMiniBatches(file, batch_size):
-    with open(file) as f:
-        while True:
-            line = f.readline()
-            batch = ""
-            if line:
-                batch += line
-            i = 1
-            while line != None and i<batch_size:
-                line = f.readline()
-                if not line:
-                    break
-                batch += line
-                i += 1
-            print(batch)
-            array = numpy.loadtxt(batch,delimiter=";")
-            yield array
-        
+from time import time
 
 # Performs K-means clustering and save the model to a local file
 if __name__ == '__main__':
@@ -42,15 +23,20 @@ if __name__ == '__main__':
     batch_size = int(sys.argv[4])
 
     #Read input MFCCS
+    print("Reading MFCCs into numpy array")
+    start = time()
     input_mfccs = numpy.loadtxt(mfcc_csv_file,delimiter=";")    # Doesnt work -> Memory error
-
+    end = time()
+    print("Loaded input into memory. Time taken: ".format(end-start))
     # Initialize KMeans model with required parameters
-    # data = getMiniBatches(mfcc_csv_file,batch_size)
-    # for i,r in enumerate(data):
-    #     print(i,r)
-    kmeans = MiniBatchKMeans(n_clusters=cluster_num,verbose=True,batch_size=1000)
+    kmeans = MiniBatchKMeans(n_clusters=cluster_num,batch_size=batch_size)
+
     # Fit the model to the data
+    print("Fitting K-means model")
+    start = time()
     kmeans.fit(input_mfccs)
+    end = time()
+    print("K-means fit complete. Time taken: ".format(end-start))
     # Save the trained model using Pickle
     with open(output_file,"wb") as out:
         pkl.dump(kmeans,out)
