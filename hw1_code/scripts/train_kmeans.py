@@ -29,8 +29,8 @@ if __name__ == '__main__':
     end = time()
     print("Loaded input into memory. Time taken: {}".format(end-start))
     # Initialize KMeans model with required parameters
-    # kmeans = MiniBatchKMeans(n_clusters=cluster_num,batch_size=batch_size,verbose=True)
-    kmeans = KMeans(n_clusters=cluster_num,verbose=True)
+    kmeans = MiniBatchKMeans(n_clusters=cluster_num,batch_size=batch_size,verbose=True)
+    # kmeans = KMeans(n_clusters=cluster_num,verbose=True)
     # Fit the model to the data
     print("Fitting K-means model")
     start = time()
