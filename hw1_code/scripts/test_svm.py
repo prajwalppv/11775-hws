@@ -47,7 +47,7 @@ if __name__ == '__main__':
             X = np.loadtxt(feature_file,delimiter=";")
             X = np.reshape(X,(1,-1))
             class_probs = svm.decision_function(X)
-            f_write.write("{} {}\n".format(fname,class_probs[0][1]))
+            f_write.write("{} {}\n".format(fname,class_probs))
     
     print("Creating Validation predictions")
     for line in tqdm(val_files):
@@ -60,4 +60,4 @@ if __name__ == '__main__':
             X = np.loadtxt(feature_file,delimiter=";")
             X = np.reshape(X,(1,-1))
             class_probs = svm.decision_function(X)
-            val_write.write("{} {}\n".format(fname,class_probs[0][1]))
+            val_write.write("{} {}\n".format(fname,class_probs))
