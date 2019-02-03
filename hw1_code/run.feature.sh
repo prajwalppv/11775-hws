@@ -13,7 +13,7 @@ export LD_LIBRARY_PATH=$opensmile_path/lib:$LD_LIBRARY_PATH
 
 # Two additional variables
 video_path=~/video   # path to the directory containing all the videos. In this example setup, we are linking all the videos to "../video"
-cluster_num=50        # the number of clusters in k-means. Note that 50 is by no means the optimal solution.
+cluster_num=400        # the number of clusters in k-means. Note that 50 is by no means the optimal solution.
                       # You need to explore the best config by yourself.
 batch_size = 10000
 mkdir -p audio mfcc kmeans
@@ -26,24 +26,25 @@ mkdir -p audio mfcc kmeans
 #    will see each frame totally has 39 dims. 
 #    Refer to Section 2.5 of this document http://web.stanford.edu/class/cs224s/hw/openSMILE_manual.pdf for better configuration
 #    (e.g., normalization) and other feature types (e.g., PLPs )     
-cat list/train | awk '{print $1}' > list/train.video
-cat list/val | awk '{print $1}' > list/val.video
-cat list/train.video list/val.video list/test.video > list/all.video
-for line in $(cat "list/all.video"); do
-    ffmpeg -y -i $video_path/${line}.mp4 -ac 1 -f wav audio/$line.wav
-    SMILExtract -C config/MFCC12_0_D_A.conf -I audio/$line.wav -O mfcc/$line.mfcc.csv
-done
+# cat list/train | awk '{print $1}' > list/train.video
+# cat list/val | awk '{print $1}' > list/val.video
+# cat list/train.video list/val.video list/test.video > list/all.video
+# for line in $(cat "list/all.video"); do
+#     ffmpeg -y -i $video_path/${line}.mp4 -ac 1 -f wav audio/$line.wav
+#     SMILExtract -C config/MFCC12_0_D_A.conf -I audio/$line.wav -O mfcc/$line.mfcc.csv
+# done
+
 # You may find the number of MFCC files mfcc/*.mfcc.csv is slightly less than the number of the videos. This is because some of the videos
 # don't hae the audio track. For example, HVC1221, HVC1222, HVC1261, HVC1794 
 
 # In this part, we train a clustering model to cluster the MFCC vectors. In order to speed up the clustering process, we
 # select a small portion of the MFCC vectors. In the following example, we only select 20% randomly from each video. 
-echo "Pooling MFCCs (optional)"
-python3 scripts/select_frames.py list/train.video 0.2 select.mfcc.csv || exit 1;
+# echo "Pooling MFCCs (optional)"
+# python3 scripts/select_frames.py list/train.video 0.2 select.mfcc.csv || exit 1;
 
 # now trains a k-means model using the sklearn package
 echo "Training the k-means model"
-python3 scripts/train_kmeans.py select.mfcc.csv $cluster_num kmeans.${cluster_num}.model $batch_size|| exit 1;
+python3 scripts/train_kmeans.py select.mfcc.csv $cluster_num kmeans.${cluster_num}.model $batch_size 1|| exit 1;
 
 # Now that we have the k-means model, we can represent a whole video with the histogram of its MFCC vectors over the clusters. 
 # Each video is represented by a single vector which has the same dimension as the number of clusters. 
