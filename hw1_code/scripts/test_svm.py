@@ -45,6 +45,7 @@ if __name__ == '__main__':
             continue
         else:
             X = np.loadtxt(feature_file,delimiter=";")
+            X = np.reshape(X,(1,-1))
             class_probs = svm.predict_proba(X)
             f_write.write("{} {}\n".format(fname,class_probs[0][1]))
     
@@ -57,5 +58,6 @@ if __name__ == '__main__':
             continue
         else:
             X = np.loadtxt(feature_file,delimiter=";")
+            X = np.reshape(X,(1,-1))
             class_probs = svm.predict_proba(X)
             val_write.write("{} {}\n".format(fname,class_probs[0][1]))
