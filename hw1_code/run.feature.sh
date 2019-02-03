@@ -16,6 +16,7 @@ video_path=~/video   # path to the directory containing all the videos. In this 
 cluster_num=400        # the number of clusters in k-means. Note that 50 is by no means the optimal solution.
                       # You need to explore the best config by yourself.
 batch_size=10000
+feat_dir=kmeans/norm/
 mkdir -p audio mfcc kmeans
 
 # This part does feature extraction, it may take quite a while if you have a lot of videos. Totally 3 steps are taken:
@@ -49,7 +50,7 @@ python3 scripts/train_kmeans.py select.mfcc.csv $cluster_num kmeans.${cluster_nu
 # Now that we have the k-means model, we can represent a whole video with the histogram of its MFCC vectors over the clusters. 
 # Each video is represented by a single vector which has the same dimension as the number of clusters. 
 echo "Creating k-means cluster vectors"
-python3 scripts/create_kmeans.py kmeans.${cluster_num}.model $cluster_num list/all.video || exit 1;
+python3 scripts/create_kmeans.py kmeans.${cluster_num}.model $cluster_num list/all.video $feat_dir || exit 1;
 
 # Now you can see that you get the bag-of-word representations under kmeans/. Each video is now represented
 # by a {cluster_num}-dimensional vector.
