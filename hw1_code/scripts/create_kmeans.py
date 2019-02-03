@@ -5,20 +5,19 @@ import _pickle as pkl
 from sklearn.cluster.k_means_ import KMeans
 import sys
 from collections import Counter
+from tqdm import tqdm
 # Generate k-means features for videos; each video is represented by a single vector
 
 if __name__ == '__main__':
-    if len(sys.argv) != 5:
+    if len(sys.argv) != 4:
         print ("Usage: {0} kmeans_model, cluster_num, file_list").format(sys.argv[0])
         print ("kmeans_model -- path to the kmeans model")
         print ("cluster_num -- number of cluster")
         print ("file_list -- the list of videos")
-        print ("output_file -- file to save the generated features")
         exit(1)
 
     kmeans_model = sys.argv[1]; file_list = sys.argv[3]
     cluster_num = int(sys.argv[2])
-    output_file = sys.argv[4]
 
     fread = open(file_list,"r")
     filenames = fread.readlines()
@@ -26,10 +25,10 @@ if __name__ == '__main__':
     all_video_features = [None]*len(filenames)
     # load the kmeans model
     kmeans = pkl.load(open(kmeans_model,"rb"))
-    for idx,line in enumerate(filenames):
+    for idx,line in tqdm(enumerate(filenames)):
         bag_of_words_feature = np.zeros(shape=(cluster_num))
         mfcc_path = "mfcc/" + line.replace('\n','') + ".mfcc.csv"
-        feature_path = "feature/" + line.replace('\n','') + ".csv"
+        feature_path = "feature/kmeans/" + line.replace('\n','') + ".csv"
         if os.path.exists(mfcc_path) == False:
             continue
         mfcc_input = np.loadtxt(mfcc_path, delimiter=";")

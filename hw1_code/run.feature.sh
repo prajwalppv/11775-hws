@@ -12,7 +12,7 @@ export PATH=$opensmile_path/bin:$PATH
 export LD_LIBRARY_PATH=$opensmile_path/lib:$LD_LIBRARY_PATH
 
 # Two additional variables
-video_path=../video   # path to the directory containing all the videos. In this example setup, we are linking all the videos to "../video"
+video_path=~/video   # path to the directory containing all the videos. In this example setup, we are linking all the videos to "../video"
 cluster_num=50        # the number of clusters in k-means. Note that 50 is by no means the optimal solution.
                       # You need to explore the best config by yourself.
 mkdir -p audio mfcc kmeans
@@ -56,9 +56,9 @@ python scripts/create_kmeans.py kmeans.${cluster_num}.model $cluster_num list/al
 # a vector which has the same dimension as the size of the vocabulary. The elements of this vector are the number of occurrences 
 # of the corresponding word. The vector is normalized to be like a probability. 
 # You can of course explore other better ways, such as TF-IDF, of generating these features.
-echo "Creating ASR features"
-mkdir -p asrfeat
-python scripts/create_asrfeat.py vocab list/all.video || exit 1;
+#echo "Creating ASR features"
+#mkdir -p asrfeat
+#python scripts/create_asrfeat.py vocab list/all.video || exit 1;
 
 # Great! We are done!
 echo "SUCCESSFUL COMPLETION"
