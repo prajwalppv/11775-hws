@@ -15,7 +15,7 @@ export LD_LIBRARY_PATH=$opensmile_path/lib:$LD_LIBRARY_PATH
 video_path=~/video   # path to the directory containing all the videos. In this example setup, we are linking all the videos to "../video"
 cluster_num=400        # the number of clusters in k-means. Note that 50 is by no means the optimal solution.
                       # You need to explore the best config by yourself.
-batch_size = 10000
+batch_size=10000
 mkdir -p audio mfcc kmeans
 
 # This part does feature extraction, it may take quite a while if you have a lot of videos. Totally 3 steps are taken:
