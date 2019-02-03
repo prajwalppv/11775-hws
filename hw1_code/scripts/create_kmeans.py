@@ -8,10 +8,10 @@ import sys
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:
-        print "Usage: {0} kmeans_model, cluster_num, file_list".format(sys.argv[0])
-        print "kmeans_model -- path to the kmeans model"
-        print "cluster_num -- number of cluster"
-        print "file_list -- the list of videos"
+        print ("Usage: {0} kmeans_model, cluster_num, file_list").format(sys.argv[0])
+        print ("kmeans_model -- path to the kmeans model")
+        print ("cluster_num -- number of cluster")
+        print ("file_list -- the list of videos")
         exit(1)
 
     kmeans_model = sys.argv[1]; file_list = sys.argv[3]
@@ -21,4 +21,4 @@ if __name__ == '__main__':
     kmeans = cPickle.load(open(kmeans_model,"rb"))
     
 
-    print "K-means features generated successfully!"
+    print ("K-means features generated successfully!")

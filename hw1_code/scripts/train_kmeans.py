@@ -3,6 +3,7 @@
 import numpy
 import os
 from sklearn.cluster.k_means_ import KMeans
+from sklearn.cluster import MiniBatchKMeans
 import _pickle as pkl
 import sys
 
@@ -22,7 +23,7 @@ if __name__ == '__main__':
     #Read input MFCCS
     input_mfccs = numpy.genfromtxt(mfcc_csv_file,delimiter=";")
     # Initialize KMeans model with required parameters
-    kmeans = KMeans(n_clusters=cluster_num,verbose=True)
+    kmeans = MiniBatchKMeans(n_clusters=cluster_num,verbose=True)
     # Fit the model to the data
     kmeans.fit(input_mfccs)
     # Save the trained model using Pickle
