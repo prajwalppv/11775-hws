@@ -27,16 +27,16 @@ if __name__ == '__main__':
     start = time()
     input_mfccs = numpy.loadtxt(mfcc_csv_file,delimiter=";")    # Doesnt work -> Memory error
     end = time()
-    print("Loaded input into memory. Time taken: ".format(end-start))
+    print("Loaded input into memory. Time taken: {}".format(end-start))
     # Initialize KMeans model with required parameters
-    kmeans = MiniBatchKMeans(n_clusters=cluster_num,batch_size=batch_size)
+    kmeans = MiniBatchKMeans(n_clusters=cluster_num,batch_size=batch_size,verbose=True)
 
     # Fit the model to the data
     print("Fitting K-means model")
     start = time()
     kmeans.fit(input_mfccs)
     end = time()
-    print("K-means fit complete. Time taken: ".format(end-start))
+    print("K-means fit complete. Time taken: {}".format(end-start))
     # Save the trained model using Pickle
     with open(output_file,"wb") as out:
         pkl.dump(kmeans,out)
