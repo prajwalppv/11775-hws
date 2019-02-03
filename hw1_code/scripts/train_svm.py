@@ -33,7 +33,7 @@ if __name__ == '__main__':
     for line in tqdm(train_files):
         fname, label = line.strip().split()
         feature_file = feat_dir + fname + ".csv"
-        if os.path.exists(feature_file) == None:
+        if os.path.exists(feature_file) == False:
             continue
         else:
             features.append(np.loadtxt(feature_file,delimiter=";"))
@@ -48,5 +48,5 @@ if __name__ == '__main__':
 
     with open(output_file,"wb") as o:
         pkl.dump(svm,o)
-        
+
     print ('SVM trained successfully for event %s!' % (event_name))
