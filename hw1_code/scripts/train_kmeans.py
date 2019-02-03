@@ -48,7 +48,7 @@ if __name__ == '__main__':
     # data = getMiniBatches(mfcc_csv_file,batch_size)
     # for i,r in enumerate(data):
     #     print(i,r)
-    kmeans = MiniBatchKMeans(n_clusters=cluster_num,verbose=True)
+    kmeans = MiniBatchKMeans(n_clusters=cluster_num,verbose=True,batch_size=1000)
     # Fit the model to the data
     kmeans.fit(input_mfccs)
     # Save the trained model using Pickle
