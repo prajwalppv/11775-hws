@@ -44,12 +44,12 @@ if __name__ == '__main__':
     features, labels = np.array(features), np.array(labels)
     pos_ex = features[labels!=0]
     neg_ex = features[labels==0]
-
+    pos_labels = labels[labels!=0]
     total_pos = len(pos_ex)
     np.random.shuffle(neg_ex)
     neg_ex = neg_ex[:total_pos]
     new_features = np.vstack([pos_ex,neg_ex])
-    new_labels = ([1]*total_pos)+ ([0]*total_pos)
+    new_labels = pos_labels + ([0]*total_pos)
     # svm = SVC(kernel='linear', probability=True)
 
     gnb = GaussianNB()
