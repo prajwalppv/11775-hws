@@ -30,7 +30,7 @@ if __name__ == '__main__':
             continue
         array = numpy.genfromtxt(mfcc_path, delimiter=";")
         if i == 0:
-            print("ssaaasdasdasdasdasdasd : "array.shape)
+            print("ssaaasdasdasdasdasdasd : ",array.shape)
             i+= 1
         numpy.random.shuffle(array)
         select_size = int(array.shape[0] * ratio)
