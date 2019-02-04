@@ -50,7 +50,7 @@ if __name__ == '__main__':
     neg_ex = neg_ex[:total_pos]
     new_features = np.vstack([pos_ex,neg_ex])
     new_labels = ([1]*total_pos)+ ([0]*total_pos)
-    svm = SVC(kernel='rbf', probability=True)
+    svm = SVC(kernel='linear', probability=True)
     svm.fit(new_features,new_labels)
     with open(output_file,"wb") as o:
         pkl.dump(svm,o)
