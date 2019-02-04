@@ -28,7 +28,7 @@ if __name__ == '__main__':
         mfcc_path = "mfcc_norm/" + line.replace('\n','') + ".mfcc.csv"
         if os.path.exists(mfcc_path) == False:
             continue
-        array = numpy.loadtxt(mfcc_path, delimiter=";")
+        array = numpy.genfromtxt(mfcc_path, delimiter=";")
         numpy.random.shuffle(array)
         select_size = int(array.shape[0] * ratio)
         feat_dim = array.shape[1]
