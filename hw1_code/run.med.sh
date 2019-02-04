@@ -16,14 +16,15 @@ echo "#       MED with MFCC Features      #"
 echo "#####################################"
 mkdir -p mfcc_pred
 # iterate over the events
-feat_dim_mfcc=400
+feat_dim_mfcc=600
+feat_dir=kmeans_norm/
 for event in P001 P002 P003; do
   echo "=========  Event $event  ========="
   # now train a svm model
-  python3 scripts/train_svm.py $event "kmeans/" $feat_dim_mfcc mfcc_pred/svm.$event.model || exit 1;
+  python3 scripts/train_svm.py $event $feat_dir $feat_dim_mfcc mfcc_pred/svm.$event.model || exit 1;
   # apply the svm model to *ALL* the testing videos;
   # output the score of each testing video to a file ${event}_pred 
-  python3 scripts/test_svm.py mfcc_pred/svm.$event.model "kmeans/" $feat_dim_mfcc mfcc_pred/${event}_mfcc.lst mfcc_pred/${event}_val_mfcc.lst || exit 1;
+  python3 scripts/test_svm.py mfcc_pred/svm.$event.model $feat_dir  $feat_dim_mfcc mfcc_pred/${event}_mfcc.lst mfcc_pred/${event}_val_mfcc.lst || exit 1;
   # compute the average precision by calling the mAP package
   ap list/${event}_val_label mfcc_pred/${event}_val_mfcc.lst
 done

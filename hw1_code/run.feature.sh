@@ -13,10 +13,10 @@ export LD_LIBRARY_PATH=$opensmile_path/lib:$LD_LIBRARY_PATH
 
 # Two additional variables
 video_path=~/video   # path to the directory containing all the videos. In this example setup, we are linking all the videos to "../video"
-cluster_num=400        # the number of clusters in k-means. Note that 50 is by no means the optimal solution.
+cluster_num=200        # the number of clusters in k-means. Note that 50 is by no means the optimal solution.
                       # You need to explore the best config by yourself.
 batch_size=10000
-feat_dir=kmeans_norm/
+feat_dir=kmeans/
 mkdir -p audio mfcc kmeans
 
 # This part does feature extraction, it may take quite a while if you have a lot of videos. Totally 3 steps are taken:
@@ -30,10 +30,11 @@ mkdir -p audio mfcc kmeans
 # cat list/train | awk '{print $1}' > list/train.video
 # cat list/val | awk '{print $1}' > list/val.video
 # cat list/train.video list/val.video list/test.video > list/all.video
-# for line in $(cat "list/all.video"); do
-#     ffmpeg -y -i $video_path/${line}.mp4 -ac 1 -f wav audio/$line.wav
-#     SMILExtract -C config/MFCC12_0_D_A.conf -I audio/$line.wav -O mfcc/$line.mfcc.csv
-# done
+echo "Generating MFCC vectors"
+for line in $(cat "list/all.video"); do
+     ffmpeg -y -i $video_path/${line}.mp4 -ac 1 -f wav audio/$line.wav
+     SMILExtract -C config/MFCC12_E_D_A_Z.conf -I audio/$line.wav -O mfcc_norm/$line.mfcc.csv
+done
 
 # You may find the number of MFCC files mfcc/*.mfcc.csv is slightly less than the number of the videos. This is because some of the videos
 # don't hae the audio track. For example, HVC1221, HVC1222, HVC1261, HVC1794 
@@ -41,7 +42,7 @@ mkdir -p audio mfcc kmeans
 # In this part, we train a clustering model to cluster the MFCC vectors. In order to speed up the clustering process, we
 # select a small portion of the MFCC vectors. In the following example, we only select 20% randomly from each video. 
 # echo "Pooling MFCCs (optional)"
-# python3 scripts/select_frames.py list/train.video 0.2 select.mfcc.csv || exit 1;
+python3 scripts/select_frames.py list/train.video 0.2 select.mfcc_norm.csv || exit 1;
 
 # now trains a k-means model using the sklearn package
 echo "Training the k-means model"

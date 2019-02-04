@@ -24,7 +24,7 @@ if __name__ == '__main__':
     numpy.random.seed(18877)
 
     for line in fread.readlines():
-        mfcc_path = "mfcc/" + line.replace('\n','') + ".mfcc.csv"
+        mfcc_path = "mfcc_norm/" + line.replace('\n','') + ".mfcc.csv"
         if os.path.exists(mfcc_path) == False:
             continue
         array = numpy.genfromtxt(mfcc_path, delimiter=";")
