@@ -6,6 +6,7 @@ from sklearn.svm.classes import SVC
 import _pickle as pkl
 import sys
 from tqdm import tqdm
+import random
 
 # Performs K-means clustering and save the model to a local file
 
@@ -29,21 +30,30 @@ if __name__ == '__main__':
     features = []
 
     print("Starting training of SVM model")
-    for line in tqdm(train_files):
+    for idx,line in enumerate(tqdm(train_files)):
         fname, label = line.strip().split()
         feature_file = feat_dir + fname + ".csv"
+        pos_idx = []
+        neg_idx = []
         if os.path.exists(feature_file) == False:
             continue
         else:
             features.append(np.loadtxt(feature_file,delimiter=";"))
             if label == event_name:
                 labels.append(1)
+                pos_idx.append(idx)
             else:
                 labels.append(0)
+                neg_idx.append(idx)
     features, labels = np.array(features), np.array(labels)
-
+    neg_idx = np.array(neg_idx)
+    np.random.shuffle(neg_idx)
+    neg_idx = neg_idx[:len(pos_idx)]
+    indicies_to_choose = pos_idx + list(neg_idx)
+    indicies_to_choose.sort()
+    new_features, new_labels = features[indicies_to_choose,:] ,labels[indicies_to_choose,:] 
     svm = SVC(kernel='rbf', probability=True)
-    svm.fit(features,labels)
+    svm.fit(new_features,new_labels)
 
     with open(output_file,"wb") as o:
         pkl.dump(svm,o)
