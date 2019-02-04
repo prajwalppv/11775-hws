@@ -29,7 +29,7 @@ if __name__ == '__main__':
     kmeans = pkl.load(open(kmeans_model,"rb"))
     for idx,line in enumerate(tqdm(filenames)):
         bag_of_words_feature = np.zeros(shape=(cluster_num))
-        mfcc_path = "mfcc_norm/" + line.replace('\n','') + ".mfcc.csv"
+        mfcc_path = "mfcc_normalized/" + line.replace('\n','') + ".mfcc.csv"
         feature_path = feat_dir + line.replace('\n','') + ".csv"
         if os.path.exists(mfcc_path) == False:
             continue
