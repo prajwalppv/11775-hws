@@ -51,7 +51,8 @@ if __name__ == '__main__':
     neg_idx = neg_idx[:len(pos_idx)]
     indicies_to_choose = pos_idx + list(neg_idx)
     indicies_to_choose.sort()
-    new_features, new_labels = features[indicies_to_choose,:] ,labels[indicies_to_choose,:] 
+    new_features = features[indicies_to_choose] 
+    new_labels = labels[indicies_to_choose]
     svm = SVC(kernel='rbf', probability=True)
     svm.fit(new_features,new_labels)
 
