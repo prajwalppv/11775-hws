@@ -33,31 +33,25 @@ if __name__ == '__main__':
     for idx,line in enumerate(tqdm(train_files)):
         fname, label = line.strip().split()
         feature_file = feat_dir + fname + ".csv"
-        pos_idx = []
-        neg_idx = []
         if os.path.exists(feature_file) == False:
             continue
         else:
             features.append(np.loadtxt(feature_file,delimiter=";"))
             if label == event_name:
                 labels.append(1)
-                pos_idx.append(idx)
             else:
                 labels.append(0)
-                neg_idx.append(idx)
     features, labels = np.array(features), np.array(labels)
-    neg_idx = np.array(neg_idx)
-    np.random.shuffle(neg_idx)
-    neg_idx = neg_idx[:len(pos_idx)]
-    indicies_to_choose = pos_idx + list(neg_idx)
-    indicies_to_choose.sort()
-    print("indicies : ", indicies_to_choose)
-    new_features = features[indicies_to_choose] 
-    new_labels = labels[indicies_to_choose]
-    import pdb;pdb.set_trace()
+    pos_ex = features[labels==1]
+    neg_ex = features[labels==0]
+
+    total_pos = len(pos_ex)
+    np.random.shuffle(neg_ex)
+    neg_ex = neg_ex[:total_pos]
+    new_features = np.vstack([pos_ex,neg_ex])
+    new_labels = ([1]*total_pos)+ ([0]*total_pos)
     svm = SVC(kernel='rbf', probability=True)
     svm.fit(new_features,new_labels)
-
     with open(output_file,"wb") as o:
         pkl.dump(svm,o)
 
