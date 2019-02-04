@@ -29,11 +29,12 @@ if __name__ == '__main__':
     kmeans = pkl.load(open(kmeans_model,"rb"))
     for idx,line in enumerate(tqdm(filenames)):
         bag_of_words_feature = np.zeros(shape=(cluster_num))
-        mfcc_path = "mfcc/" + line.replace('\n','') + ".mfcc.csv"
+        mfcc_path = "mfcc_norm/" + line.replace('\n','') + ".mfcc.csv"
         feature_path = feat_dir + line.replace('\n','') + ".csv"
         if os.path.exists(mfcc_path) == False:
             continue
         mfcc_input = np.loadtxt(mfcc_path, delimiter=";")
+        print("creating vector : ",mfcc_input.shape)
         cluster_pred = kmeans.predict(mfcc_input)
         histogram = Counter(cluster_pred)
         for k,v in histogram.items():
