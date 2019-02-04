@@ -32,7 +32,7 @@ if __name__ == '__main__':
         select_size = int(array.shape[0] * ratio)
         feat_dim = array.shape[1]
 
-        for n in xrange(select_size):
+        for n in range(select_size):
             line = str(array[n][0])
             for m in range(1, feat_dim):
                 line += ';' + str(array[n][m])
