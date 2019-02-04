@@ -39,6 +39,7 @@ if __name__ == '__main__':
     # Fit the model to the data
     print("Fitting K-means model")
     start = time()
+    print("Shape of input : ",input_mfccs.shape)
     kmeans.fit(input_mfccs)
     end = time()
     print("K-means fit complete. Time taken: {}".format(end-start))
