@@ -44,4 +44,4 @@ if __name__ == '__main__':
             X = np.loadtxt(feature_file,delimiter=";")
             X = np.reshape(X,(1,-1))
             class_label = model.predict(X)
-            f_write.write("{},{}\n".format(fname,class_label))
+            f_write.write("{},{}\n".format(fname,class_label[0]))

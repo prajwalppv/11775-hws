@@ -54,6 +54,7 @@ if __name__ == '__main__':
 
     gnb = GaussianNB()
     gnb.fit(new_features,new_labels)
+    import pdb;pdb.set_trace()
     with open(output_file,"wb") as o:
         pkl.dump(gnb,o)
 
