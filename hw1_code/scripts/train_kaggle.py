@@ -45,16 +45,18 @@ if __name__ == '__main__':
     pos_ex = features[labels!=0]
     neg_ex = features[labels==0]
     pos_labels = labels[labels!=0]
+
     total_pos = len(pos_ex)
     np.random.shuffle(neg_ex)
+    
     neg_ex = neg_ex[:total_pos]
     new_features = np.vstack([pos_ex,neg_ex])
     new_labels = pos_labels + ([0]*total_pos)
     # svm = SVC(kernel='linear', probability=True)
-
+    import pdb;pdb.set_trace()
     gnb = GaussianNB()
     gnb.fit(new_features,new_labels)
-    import pdb;pdb.set_trace()
+    
     with open(output_file,"wb") as o:
         pkl.dump(gnb,o)
 
