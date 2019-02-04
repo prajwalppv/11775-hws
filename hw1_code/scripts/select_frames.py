@@ -4,6 +4,7 @@
 import numpy
 import os
 import sys
+from tqdm import tqdm
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:
@@ -23,11 +24,11 @@ if __name__ == '__main__':
     # num_of_frame * ratio rows
     numpy.random.seed(18877)
 
-    for line in fread.readlines():
+    for line in tqdm(fread.readlines()):
         mfcc_path = "mfcc_norm/" + line.replace('\n','') + ".mfcc.csv"
         if os.path.exists(mfcc_path) == False:
             continue
-        array = numpy.genfromtxt(mfcc_path, delimiter=";")
+        array = numpy.loadtxt(mfcc_path, delimiter=";")
         numpy.random.shuffle(array)
         select_size = int(array.shape[0] * ratio)
         feat_dim = array.shape[1]
