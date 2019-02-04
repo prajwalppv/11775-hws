@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
     fread = open(file_list,"r")
     fwrite = open(output_file,"w")
-
+    i = 0
     # random selection is done by randomizing the rows of the whole matrix, and then selecting the first 
     # num_of_frame * ratio rows
     numpy.random.seed(18877)
@@ -29,6 +29,9 @@ if __name__ == '__main__':
         if os.path.exists(mfcc_path) == False:
             continue
         array = numpy.genfromtxt(mfcc_path, delimiter=";")
+        if i == 0:
+            print("ssaaasdasdasdasdasdasd : "array.shape)
+            i+= 1
         numpy.random.shuffle(array)
         select_size = int(array.shape[0] * ratio)
         feat_dim = array.shape[1]
