@@ -31,7 +31,6 @@ if __name__ == '__main__':
         array = numpy.genfromtxt(mfcc_path, delimiter=";")
         if i == 0:
             print("ssaaasdasdasdasdasdasd : ",array.shape)
-            i+= 1
         numpy.random.shuffle(array)
         select_size = int(array.shape[0] * ratio)
         feat_dim = array.shape[1]
