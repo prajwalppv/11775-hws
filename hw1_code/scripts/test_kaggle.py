@@ -33,6 +33,7 @@ if __name__ == '__main__':
     with open(model_file,"rb") as o:
         model = pkl.load(o)
     # Generate TEST probabilities
+    f_write.write("VideoID,Label\n")
     print("Creating TEST predictions")
     for line in tqdm(test_files):
         fname = line.strip()

@@ -8,6 +8,7 @@ import sys
 from tqdm import tqdm
 import random
 from sklearn.naive_bayes import GaussianNB
+from sklearn.ensemble import RandomForestClassifier
 
 # Performs K-means clustering and save the model to a local file
 
@@ -53,11 +54,11 @@ if __name__ == '__main__':
     new_features = np.vstack([pos_ex,neg_ex])
     new_labels = list(pos_labels) + ([0]*total_pos)
     # svm = SVC(kernel='linear', probability=True)
-    import pdb;pdb.set_trace()
-    gnb = GaussianNB()
-    gnb.fit(new_features,new_labels)
+    # model = GaussianNB()
+    model = RandomForestClassifier(n_estimators=100,max_depth=5,verbose=True)
+    model.fit(new_features,new_labels)
     
     with open(output_file,"wb") as o:
-        pkl.dump(gnb,o)
+        pkl.dump(model,o)
 
-    print ('GNB trained successfully for Kaggle!')
+    print ('Kaggle Model trained successfully for Kaggle!')
