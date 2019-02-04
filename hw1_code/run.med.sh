@@ -29,6 +29,10 @@ for event in P001 P002 P003; do
   ap list/${event}_val_label mfcc_pred/${event}_val_mfcc.lst
 done
 
+# Train Kaggle model
+python3 scripts/train_kaggle.py $feat_dir $feat_dim_mfcc mfcc_pred/kaggle.model
+# generate Test predictions to submit on Kaggle
+python3 scripts/test_kaggle.py mfcc_pred/kaggle.model $feat_dir $feat_dim_mfcc mfcc_pred/kaggle.csv
 # echo ""
 # echo "#####################################"
 # echo "#       MED with ASR Features       #"
