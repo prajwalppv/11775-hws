@@ -48,10 +48,10 @@ if __name__ == '__main__':
 
     total_pos = len(pos_ex)
     np.random.shuffle(neg_ex)
-    
+
     neg_ex = neg_ex[:total_pos]
     new_features = np.vstack([pos_ex,neg_ex])
-    new_labels = pos_labels + ([0]*total_pos)
+    new_labels = list(pos_labels) + ([0]*total_pos)
     # svm = SVC(kernel='linear', probability=True)
     import pdb;pdb.set_trace()
     gnb = GaussianNB()
