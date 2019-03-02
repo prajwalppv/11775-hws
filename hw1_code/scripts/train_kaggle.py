@@ -55,7 +55,7 @@ if __name__ == '__main__':
     new_labels = list(pos_labels) + ([0]*total_pos)
     # svm = SVC(kernel='linear', probability=True)
     # model = GaussianNB()
-    model = RandomForestClassifier(n_estimators=100,max_depth=5,verbose=True)
+    model = RandomForestClassifier(n_estimators=100,max_depth=5)
     model.fit(new_features,new_labels)
     
     with open(output_file,"wb") as o:
