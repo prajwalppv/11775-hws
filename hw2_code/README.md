@@ -9,7 +9,7 @@ To downsample videos:<br>
 Change parameters as required in the config.yaml file <br>
 
 To extract SURF features run: <br>
-*python surf_feat_extraction.py all_video_file_list config_file
+* python surf_feat_extraction.py all_video_file_list config_file
     
 To extract CNN features: <br>
     * Start the notebook - CNN_features.ipynb <br>
