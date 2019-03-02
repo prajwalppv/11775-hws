@@ -1,5 +1,5 @@
 Run the below command in the bash to setup folders in the hw2_code folder:
-    mkdir -p cnn surf cnn_2 kmeans kmeans_cnn cnn_pred surf_pred models downsampled_videos
+    ` mkdir -p cnn surf cnn_2 kmeans kmeans_cnn cnn_pred surf_pred models downsampled_videos `
 <br>
 
 To downsample videos:<br>
