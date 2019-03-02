@@ -1,13 +1,19 @@
-Full pipeline is given in the shell script **run.pipeline.sh**.
+Run the below command in the bash to setup folders in the hw2_code folder:
+    mkdir -p cnn surf cnn_2 kmeans kmeans_cnn cnn_pred surf_pred models downsampled_videos
 
-You can pass pass arguments to this bash script defining which one of the steps (preprocessing: **p**, feature representation: **f**, MAP scores: **m**, kaggle results: **k**, yaml filepath: **y**) you want to perform.
-
-This helps you to avoid rewriting the bash script whenever there are intermediate steps that you don't want to repeat.
-Here we also show you how to keep all your parameters in a **yaml file**. It helps to keep track of different parameter configurations that you may try. However, you do not have to keep your parameters in a yaml file. You can change this code as you want.
-
-Here is an example of how to execute the script: 
-
-    bash run.pipeline.sh -p true -f true -m true -k true -y filepath
+To downsample videos 
+    - Start the notebook - Downsample.ipynb
+    - Run the cells in sequence after changing the paths as required
     
-As you already have functions to train kmeans and SVMs, we did not include those skeletons here.
-The main TODOs will be to write the function for SURF feature extraction and for CNN feature extraction. **You can reuse your code from HW1 for kmeans and SVM training.**
+Change parameters as required in the config.yaml file
+
+To extract SURF features run:
+    python surf_feat_extraction.py all_video_file_list config_file
+    
+To extract CNN features,
+    - Start the notebook - CNN_features.ipynb
+    - Change the variables to indicate the right video files and destination path and run the cells sequentially
+    
+Once features are extracted,
+    - Open the notebook, surf.ipynb
+    - Specify the paramters such as MODE='surf'/'cnn' to 
